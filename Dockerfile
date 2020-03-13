@@ -30,6 +30,11 @@ RUN go build -o /go/bin/hello
 FROM scratch
 COPY --from=builder /go/bin/hello /go/bin/hello
 
+# Copy running user
+#
+COPY --from=builder /etc/passwd /etc/passwd
+COPY --from=builder /etc/group /etc/group
+
 # User non root user with limited privelege
 #
 USER mike:mike
