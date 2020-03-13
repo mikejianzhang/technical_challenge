@@ -6,7 +6,7 @@ FROM golang@sha256:e484434a085a28801e81089cc8bcec65bc990dd25a070e3dd6e04b19ceafa
 # Install git for fetching go modules
 #
 RUN apk update && \
-    apk add --no-cache git
+    apk add --no-cache git tzdata
 
 # Setup non root user with limit option
 #
@@ -24,13 +24,17 @@ COPY . .
 RUN go mod download
 RUN go mod verify
 
-RUN GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /go/bin/hello
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /go/bin/hello
 
 ##
 ## Build real docker image
 ##
 FROM scratch
 COPY --from=builder /go/bin/hello /go/bin/hello
+
+# Copy zoneinfo
+#
+COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 
 # Copy running user
 #
