@@ -6,8 +6,7 @@ FROM golang@sha256:e484434a085a28801e81089cc8bcec65bc990dd25a070e3dd6e04b19ceafa
 # Install git for fetching go modules
 #
 RUN apk update && \
-    apk add --no-cache git && \
-    apk add bash
+    apk add --no-cache git
 
 # Setup non root user with limit option
 #
@@ -22,15 +21,15 @@ RUN adduser \
 WORKDIR $GOPATH/src/main/hello/
 COPY . .
 
-RUN go get -d -v
+RUN go mod download
+RUN go mod verify
 
-RUN go build -o /go/bin/hello
+RUN GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /go/bin/hello
 
 ##
 ## Build real docker image
 ##
 FROM scratch
-COPY --from=builder /bin/bash /bin/bash
 COPY --from=builder /go/bin/hello /go/bin/hello
 
 # Copy running user
