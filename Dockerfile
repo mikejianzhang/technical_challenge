@@ -1,7 +1,7 @@
-# golang:alpine
+# 1.14-alpine
 # pull from the exact digest for security purpose to make sure it is the exact image you want
 #
-FROM golang@sha256:1e4e630d4f0a0f13aca6ab0369507adcc5d2e89446f882df1e8428f1c608fa41 AS builder
+FROM golang@sha256:e484434a085a28801e81089cc8bcec65bc990dd25a070e3dd6e04b19ceafaced AS builder
 
 # Install git for fetching go modules
 #
