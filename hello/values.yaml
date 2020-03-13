@@ -44,7 +44,7 @@ livenessProbe:
   timeOutSeconds: 20
 
 env:
-  MESSAGES: MikeKube
+  MESSAGE: MikeKube
 
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
