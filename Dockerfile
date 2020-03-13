@@ -5,7 +5,9 @@ FROM golang@sha256:e484434a085a28801e81089cc8bcec65bc990dd25a070e3dd6e04b19ceafa
 
 # Install git for fetching go modules
 #
-RUN apk update && apk add --no-cache git
+RUN apk update && \
+    apk add --no-cache git && \
+    apk add bash
 
 # Setup non root user with limit option
 #
@@ -28,6 +30,7 @@ RUN go build -o /go/bin/hello
 ## Build real docker image
 ##
 FROM scratch
+COPY --from=builder /bin/bash /bin/bash
 COPY --from=builder /go/bin/hello /go/bin/hello
 
 # Copy running user
@@ -42,7 +45,7 @@ USER mike:mike
 # Expose the service by port. Try to use port higher 
 # than 1024, so that no need root priveledge to bind
 #
-EXPOSE 8888
+EXPOSE 3000
 
 # Export directory
 #

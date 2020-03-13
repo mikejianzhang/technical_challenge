@@ -26,5 +26,5 @@ then
     build_args="$build_args --build-arg no_proxy=$no_proxy"
 fi
 
-echo "docker build $build_args --no-cache -t ${IMAGE_NAME} ."
+echo "docker build $build_args -t ${IMAGE_NAME} ."
 docker build $build_args --no-cache -t ${IMAGE_NAME} .
