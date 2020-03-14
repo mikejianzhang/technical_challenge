@@ -58,6 +58,11 @@ resources:
     cpu: 200m
     memory: 128Mi
 
+hpa:
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
+
 # The persistence is enabled by default and a default StorageClass
 # is needed in the k8s cluster to provision volumes dynamicly. 
 # Specify another StorageClass in the "storageClass" or set "existingClaim"
