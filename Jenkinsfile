@@ -15,7 +15,6 @@ pipeline {
     }
     options {
         ansiColor('xterm')
-        timestamps()
     }
     stages {
         stage('Build docker image') { 
