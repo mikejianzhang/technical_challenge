@@ -8,10 +8,10 @@ pipeline {
         label 'common'
     }
     environment {
-        MAJOR_VERSION = 8
-        MINOR_VERSION = 0
-        DOCKER_REGISTRY_INTERNAL_NAME = docker-registry.devops-cicd.svc.cluster.local:5000
-        DOCKER_REGISTRY_INGRESS_NAME = docker-registry.local
+        MAJOR_VERSION = "8"
+        MINOR_VERSION = "0"
+        DOCKER_REGISTRY_INTERNAL_NAME = "docker-registry.devops-cicd.svc.cluster.local:5000"
+        DOCKER_REGISTRY_INGRESS_NAME = "docker-registry.local"
     }
     options {
         ansiColor('xterm')
