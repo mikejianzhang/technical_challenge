@@ -29,7 +29,8 @@ This repo contains a small "Hello World" webserver which simulates a small micro
     + livenessProbe and readinessProbe have been set in deployment.yaml, so that kubernetes controller can monitor the pod in case need to kill and recreate the pod, or add/remove the pod from service
    
  - Security wise, try to follow the best practices securing all the resources in Kubernetes when possible
-    + TBD
+    + By default, the pod of the microservice bind to a default service account (default) which has no permission to list Kubernetes resources, so it is safe enough
+    + If the process in pod needs to access kubernetes api server, in the helm chart, we can create roles or cluster roles with exact namespaced or non-namespaced resource permisions, create a service account for the pod, and bind the roles to this service account, then add this service account to the pod spec in deployment.yaml
   
  - Create a K8S resource for scale up and down the microservice based on the CPU load
     + hpa.yaml has been added in the helm to scale up and down the pod based on CPU load from the resource metrics API implemented by metrics-server.
