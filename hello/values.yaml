@@ -68,7 +68,7 @@ hpa:
 # Specify another StorageClass in the "storageClass" or set "existingClaim"
 # if you have already existing persistent volumes to use
 persistence:
-  enabled: true
+  enabled: false
   # Setting it to "keep" to avoid removing PVCs during a helm delete 
   # operation. Leaving it empty will delete PVCs after the chart deleted
   resourcePolicy: "keep"
