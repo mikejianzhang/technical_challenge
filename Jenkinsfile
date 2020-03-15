@@ -37,6 +37,7 @@ pipeline {
                 sh '''#!/bin/bash -il
                     set -ex
                     echo "Build chart package"
+                    helm init -c
                     helm package --version ${MAJOR_VERSION}.${MINOR_VERSION}.${BUILD_NUMBER} hello/
 
                     if [ $? -ne 0 ]
