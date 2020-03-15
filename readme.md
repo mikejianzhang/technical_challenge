@@ -29,7 +29,19 @@ This repo contains a small "Hello World" webserver which simulates a small micro
     + livenessProbe and readinessProbe have been set in deployment.yaml, so that kubernetes controller can monitor the pod in case need to kill and recreate the pod, or add/remove the pod from service
    
  - Security wise, try to follow the best practices securing all the resources in Kubernetes when possible
+    + TBD
+  
  - Create a K8S resource for scale up and down the microservice based on the CPU load
+    + hpa.yaml has been added in the helm to scale up and down the pod based on CPU load from the resource metrics API implemented by metrics-server.
+    + Please be note that current HPA uses autoscaling/v1 api which only support scale on single resource metric: CPU utilization, because the latest kubernetes on my docker desktop for Mac is 1.14. To support multiple resource metrics, or use cutom metrics or external metrics, the kubernetes version must be 1.16 or later, besides some monitor system with metrics api adaper also needs to be configured
+  
  - Create a Jenkins pipeline for deploying the microservice.
+    + TBD
+  
  - Describe how to retrieve metrics from the microservice like CPU usage, memory usage...
+    + The resource metrics api (core metrics api) implemented by metrics-server (which also collect the information from advisor in kubelet) already provide the CPU and memory statistics for node and pod, so use "kubectl top node", "kubect top pod", you can get the CPU and memory usage of the pod of microservice
+    + In order to get the application related metrics, the microservice must provide the api endpoint xxxx/metrics, so that it can be captured by Prometheus and searched and displayed in Grafana
+    + There are also custome resoruce metrics api and external resource metrics, so that you can install other vendors implmentaion of these apis to gather more metrics.
+  
  - Describe how to retrieve the logs from the microservice and how to store in a central location
+    + TBD
