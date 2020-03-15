@@ -19,8 +19,15 @@ This repo contains a small "Hello World" webserver which simulates a small micro
     + Expose port greater than 1024, so that it doesn't need root priviledge to open
   
  - Create all required resources in Kubernetes to expose the microservice to the public. Make sure that the microservice has access to a volume mounted in /tmp for storing temp data.
+    + A helm chart in folder hello has been created to deploy the microservice
+    + Since it is debugged in docker desktop for Mac, the default storage class "hostpaht" is used to create the PVC which is used to mount to /tmp folder in the pod
+
  - Use MESSAGES env variable to configure the message displayed by the server
+    + In the deployment.yaml, environment variable MESSAGE(From the code, the environment variable name is MESSAGE instead of MESSAGES) has been set, and value has been extracted as parameter which can be configured in values.yaml according to differnt environemnt
+  
  - Make sure that the health of the microservice is monitored from Kubernetes perspective
+    + livenessProbe and readinessProbe have been set in deployment.yaml, so that kubernetes controller can monitor the pod in case need to kill and recreate the pod, or add/remove the pod from service
+   
  - Security wise, try to follow the best practices securing all the resources in Kubernetes when possible
  - Create a K8S resource for scale up and down the microservice based on the CPU load
  - Create a Jenkins pipeline for deploying the microservice.
