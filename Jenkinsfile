@@ -32,6 +32,21 @@ pipeline {
                 '''
             }
         }
+        stage('Build chart package') { 
+            steps { 
+                sh '''#!/bin/bash -il
+                    set -ex
+                    echo "Build chart package"
+                    helm package --version ${MAJOR_VERSION}.${MINOR_VERSION}.${BUILD_NUMBER} hello/
+
+                    if [ $? -ne 0 ]
+                    then
+                        echo "Failed to build chart package!"
+                        exit 1
+                    fi
+                '''
+            }
+        }
         stage('Push docker image') { 
             steps { 
                 sh '''#!/bin/bash -il
@@ -52,9 +67,9 @@ pipeline {
                 sh '''#!/bin/bash -il
                     set -ex
                     echo "Deploy application"
-                    helm upgrade hello hello/ -i --namespace default \
+                    helm upgrade hello hello-${MAJOR_VERSION}.${MINOR_VERSION}.${BUILD_NUMBER}.tgz -i --namespace default \
                         --set-string image.repository=${DOCKER_REGISTRY_INGRESS_NAME}/hello,image.tag=${MAJOR_VERSION}.${MINOR_VERSION}.${BUILD_NUMBER} \
-                        --version ${MAJOR_VERSION}.${MINOR_VERSION}.${BUILD_NUMBER}
+
                     if [ $? -ne 0 ]
                     then
                         echo "Failed to deploy application!"
