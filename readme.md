@@ -37,7 +37,8 @@ This repo contains a small "Hello World" webserver which simulates a small micro
     + Please be note that current HPA uses autoscaling/v1 api which only support scale on single resource metric: CPU utilization, because the latest kubernetes on my docker desktop for Mac is 1.14. To support multiple resource metrics, or use cutom metrics or external metrics, the kubernetes version must be 1.16 or later, besides some monitor system with metrics api adaper also needs to be configured
   
  - Create a Jenkins pipeline for deploying the microservice.
-    + TBD
+    + Jenkinsfile is added in the root path of repository
+    + Follow the readme of https://github.com/mikejianzhang/cicd-environment, you can setup the test CI/CD environment to build and deploy the microservice in local kubernetes (docker desktop for Mac)
   
  - Describe how to retrieve metrics from the microservice like CPU usage, memory usage...
     + The resource metrics api (core metrics api) implemented by metrics-server (which also collect the information from advisor in kubelet) already provide the CPU and memory statistics for node and pod, so use "kubectl top node", "kubect top pod", you can get the CPU and memory usage of the pod of microservice
