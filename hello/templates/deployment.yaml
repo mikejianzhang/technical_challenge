@@ -24,6 +24,8 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            readOnlyRootFilesystem: true
           env:
           {{- range $name, $value := .Values.env }}
           {{- if ne (len ($value | quote)) 0 }}
