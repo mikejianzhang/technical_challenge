@@ -33,8 +33,7 @@ This repo contains a small "Hello World" webserver which simulates a small micro
     + If the process in pod needs to access kubernetes api server, in the helm chart, we can create roles or cluster roles with exact namespaced or non-namespaced resource permisions, create a service account for the pod, and bind the roles to this service account, then add this service account to the pod spec in deployment.yaml
   
  - Create a K8S resource for scale up and down the microservice based on the CPU load
-    + hpa.yaml has been added in the helm to scale up and down the pod based on CPU load from the resource metrics API implemented by metrics-server.
-    + Please be note that current HPA uses autoscaling/v1 api which only support scale on single resource metric: CPU utilization, because the latest kubernetes on my docker desktop for Mac is 1.14. To support multiple resource metrics, or use cutom metrics or external metrics, the kubernetes version must be 1.16 or later, besides some monitor system with metrics api adaper also needs to be configured
+    + hpa.yaml of version v2beta2 has been added in the helm to scale up and down the pod based on CPU load from the resource metrics API implemented by metrics-server.
   
  - Create a Jenkins pipeline for deploying the microservice.
     + Jenkinsfile is added in the root path of repository
