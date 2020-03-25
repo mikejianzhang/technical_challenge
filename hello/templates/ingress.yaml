@@ -1,6 +1,6 @@
 {{- if .Values.ingress.enabled -}}
 {{- $serviceName := include "hello.fullname" . -}}
-{{- $servicePort := .Values.service.port -}}
+{{- $servicePort := .Values.service.externalPort -}}
 {{- $fullName := include "hello.fullname" . -}}
 {{- $paths := .Values.ingress.paths -}}
 apiVersion: extensions/v1beta1

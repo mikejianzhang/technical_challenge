@@ -15,7 +15,20 @@ fullnameOverride: ""
 
 service:
   type: ClusterIP
-  port: 3000
+  externalPort: 3000
+  internalPort: 3000
+
+hpa:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50
 
 ingress:
   enabled: true
