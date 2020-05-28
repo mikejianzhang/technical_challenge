@@ -5,7 +5,7 @@
 
 pipeline {
     agent {
-        label 'common'
+        label 'slave-k8s'
     }
     environment {
         MAJOR_VERSION = "8"
