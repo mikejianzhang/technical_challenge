@@ -10,7 +10,7 @@ pipeline {
     environment {
         MAJOR_VERSION = "8"
         MINOR_VERSION = "0"
-        DOCKER_REGISTRY_INTERNAL_NAME = "docker-registry.devops-cicd.svc.cluster.local:5000"
+        DOCKER_REGISTRY_INTERNAL_NAME = "docker-registry:5000"
         DOCKER_REGISTRY_INGRESS_NAME = "docker-registry.local"
     }
     options {
@@ -22,6 +22,7 @@ pipeline {
                 sh '''#!/bin/bash -il
                     set -ex
                     echo "Build docker images"
+                    sleep  3600
                     ./build.sh ${DOCKER_REGISTRY_INTERNAL_NAME}/hello:${MAJOR_VERSION}.${MINOR_VERSION}.${BUILD_NUMBER}
 
                     if [ $? -ne 0 ]
