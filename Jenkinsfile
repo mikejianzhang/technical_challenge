@@ -22,7 +22,6 @@ pipeline {
                 sh '''#!/bin/bash -il
                     set -ex
                     echo "Build docker images"
-                    sleep  3600
                     ./build.sh ${DOCKER_REGISTRY_INTERNAL_NAME}/hello:${MAJOR_VERSION}.${MINOR_VERSION}.${BUILD_NUMBER}
 
                     if [ $? -ne 0 ]
