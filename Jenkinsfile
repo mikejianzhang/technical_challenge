@@ -37,8 +37,7 @@ pipeline {
                 sh '''#!/bin/bash -il
                     set -ex
                     echo "Build chart package"
-                    helm init -c
-                    helm package --version ${MAJOR_VERSION}.${MINOR_VERSION}.${BUILD_NUMBER} hello/
+                    helm package hello/ --version ${MAJOR_VERSION}.${MINOR_VERSION}.${BUILD_NUMBER}
 
                     if [ $? -ne 0 ]
                     then
@@ -68,7 +67,7 @@ pipeline {
                 sh '''#!/bin/bash -il
                     set -ex
                     echo "Deploy application"
-                    helm upgrade hello hello-${MAJOR_VERSION}.${MINOR_VERSION}.${BUILD_NUMBER}.tgz -i --namespace default \
+                    helm upgrade hello hello-${MAJOR_VERSION}.${MINOR_VERSION}.${BUILD_NUMBER}.tgz -i --create-namespace --namespace default \
                         --set-string image.repository=${DOCKER_REGISTRY_INGRESS_NAME}/hello,image.tag=${MAJOR_VERSION}.${MINOR_VERSION}.${BUILD_NUMBER} \
 
                     if [ $? -ne 0 ]
